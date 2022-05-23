@@ -2,6 +2,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Concert One", cursive;
 }
 
 body,
@@ -22,6 +23,7 @@ html {
   height: 10vh;
   width: 100vw;
   background-color: #e4000f;
+  color: white;
   gap: 2rem;
 }
 
@@ -30,7 +32,76 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 90vh;
-  width: 100vw;
-  background-color: rgb(236, 228, 228);
+  min-height: 90vh;
+  min-width: 100vw;
+  background-image: linear-gradient(to right, red, rgb(140, 182, 202));
+}
+
+#info-pokeball {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+  height: 80%;
+}
+
+#info-pokeball-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 47%;
+  background-color: rgba(154, 51, 51, 0.5);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 1em;
+}
+
+#info-pokeball-top-basic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  height: 100%;
+}
+
+#info-pokeball-id {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  background-color: transparent;
+}
+
+#info-pokeball-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 47%;
+  background-color: rgba(251, 233, 233, 0.5);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 1em;
+}
+
+#info-pokeball-bottom-moves-list {
+  list-style: none;
+  padding-top: 1em;
+}
+
+#info-pokeball-bottom-moves-list > li {
+  list-style: none;
+  padding-top: 0.2em;
 }
