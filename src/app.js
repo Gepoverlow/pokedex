@@ -4,6 +4,7 @@ async function getPokemon(identifier) {
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}`);
   const response = await data.json();
 
+  console.log(response);
   processPokemon(response);
 }
 
@@ -20,8 +21,12 @@ function processPokemon(response) {
 function handleMoves(response) {
   const moves = [];
 
-  for (let i = 0; i < 4; i++) {
-    moves.push(response.moves[i].move.name);
+  if (response.moves.length === 1) {
+    moves.push(response.moves[0].move.name);
+  } else {
+    for (let i = 0; i < 4; i++) {
+      moves.push(response.moves[i].move.name);
+    }
   }
 
   return moves;
