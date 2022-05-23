@@ -22,24 +22,45 @@ const types = [
 ];
 
 const colors = [
-  "#A8A878",
-  "#F08030",
-  "#6890F0",
-  "#78C850",
-  "#F8D030",
-  "#98D8D8",
-  "#C03028",
-  "#A040A0",
-  "#E0C068",
-  "#A890F0",
-  "#F85888",
-  "#A8B820",
-  "#B8A038",
-  "#705898",
-  "#705848",
-  "#7038F8",
-  "#B8B8D0",
-  "#F0B6BC",
+  "#A8A878", //
+  "#F08030", //
+  "#6890F0", //
+  "#78C850", //
+  "#F8D030", //
+  "#98D8D8", //
+  "#C03028", //
+  "#A040A0", //
+  "#E0C068", //
+  "#A890F0", //
+  "#F85888", //
+  "#A8B820", //
+  "#B8A038", //
+  "#705898", //
+  "#705848", //
+  "#7038F8", //
+  "#B8B8D0", //
+  "#F0B6BC", //
+];
+
+const lightColors = [
+  "#C3C3A2", //
+  "#f0A067", //
+  "#68B0F0", //
+  "#97C87E", //
+  "#F7DB69", //
+  "#BCDEDE", //
+  "#C2615C", //
+  "#A464A4", //
+  "#E2CB8E", //
+  "#C4B4F4", //
+  "#F97fA4", //
+  "#B3BB67", //
+  "#B9AA6B", //
+  "#827499", //
+  "#77695F", //
+  "#9166F9", //
+  "#CFCFD5", //
+  "#F1CACE", //
 ];
 
 async function getPokemon(identifier) {
@@ -83,12 +104,26 @@ function handleTypes(response) {
   return types;
 }
 
-function handleBackground(types) {
-  let gradientBg = "";
+function handleBackground(typing) {
+  let gradientBg;
 
   if (types.length > 1) {
-    gradientBg = ``;
+    let indexOne = types.indexOf(typing[0]);
+    let primaryColor = colors[indexOne];
+
+    let indexTwo = types.indexOf(typing[1]);
+    let secondaryColor = colors[indexTwo];
+
+    gradientBg = `linear-gradient(to right, ${primaryColor}, ${secondaryColor};`;
+  } else {
+    let indexOne = types.indexOf(typing[0]);
+    let primaryColor = colors[indexOne];
+
+    let secondaryColor = colors[indexTwo];
+    gradientBg = `linear-gradient(to right, ${primaryColor}, ${secondaryColor};`;
   }
+
+  console.log(gradientBg);
 }
 
 function createPokemon() {}
@@ -99,3 +134,7 @@ searchPokemon.addEventListener("click", (e) => {
   let searchValue = document.getElementById("pokemon-search-input").value;
   getPokemon(searchValue);
 });
+
+handleBackground(["normal", "fairy"]);
+
+//  "#F08030", "#6890F0",
