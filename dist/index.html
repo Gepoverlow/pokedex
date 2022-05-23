@@ -4,24 +4,55 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Concert+One&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>Pokedex</title>
   </head>
   <body>
     <div id="container-all">
-        <div id="container-search">
-            <form id="pokemon-search-form" action="">
-                <label for="pokemon-search-input">Search a Pokemon by Name or Id</label>
-                <input id="pokemon-search-input" type="text" />
-                <button id="pokemon-search-button" type="submit">Search!</button>
-            </form>
+      <div id="container-search">
+        <form id="pokemon-search-form" action="">
+          <label for="pokemon-search-input"
+            >Search a Pokemon by Name or Id</label
+          >
+          <input id="pokemon-search-input" type="text" />
+          <button id="pokemon-search-button" type="submit">Search!</button>
+        </form>
+      </div>
+      <div id="container-info">
+        <div id="info-pokeball">
+          <div id="info-pokeball-top">
+            <div id="info-pokeball-top-basic">
+              <h1 id="info-pokeball-top-basic-name">Charizard</h1>
+              <img
+                id="info-pokeball-top-basic-img"
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+                alt=""
+              />
+              <h3 id="info-pokeball-top-basic-type">Flying / Fire</h3>
+            </div>
+          </div>
+          <div id="info-pokeball-id">#006</div>
+          <div id="info-pokeball-bottom">
+            <div id="info-pokeball-bottom-moves">
+              <h3 id="info-pokeball-bottom-moves-title">Moves</h3>
+              <ul id="info-pokeball-bottom-moves-list">
+                <li>A random Attack</li>
+                <li>A random Attack</li>
+                <li>A random Attack</li>
+                <li>A random Attack</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div id="container-info">a</div>
-
-        </div>
-       
-      
+      </div>
     </div>
+
     <script src="main.js"></script>
   </body>
 </html>
