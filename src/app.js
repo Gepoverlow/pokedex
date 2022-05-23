@@ -1,4 +1,7 @@
 const searchPokemon = document.getElementById("pokemon-search-button");
+const containerInfo = document.getElementById("container-info");
+
+const containerPokeballTop = document.getElementById("info-pokeball-top");
 
 const types = [
   "normal",
@@ -11,7 +14,7 @@ const types = [
   "poison",
   "ground",
   "flying",
-  "psyshic",
+  "psychic",
   "bug",
   "rock",
   "ghost",
@@ -22,53 +25,61 @@ const types = [
 ];
 
 const colors = [
-  "#A8A878", //
-  "#F08030", //
-  "#6890F0", //
-  "#78C850", //
-  "#F8D030", //
-  "#98D8D8", //
-  "#C03028", //
-  "#A040A0", //
-  "#E0C068", //
-  "#A890F0", //
-  "#F85888", //
-  "#A8B820", //
-  "#B8A038", //
-  "#705898", //
-  "#705848", //
-  "#7038F8", //
-  "#B8B8D0", //
-  "#F0B6BC", //
+  "#A8A878", //normal
+  "#F08030", //fire
+  "#6890F0", //water
+  "#78C850", //grass
+  "#F8D030", //electric
+  "#98D8D8", //ice
+  "#C03028", //fighting
+  "#A040A0", //poison
+  "#E0C068", //ground
+  "#A890F0", //flying
+  "#F85888", //psychic
+  "#A8B820", //bug
+  "#B8A038", //rock
+  "#705898", //ghost
+  "#705848", //dark
+  "#7038F8", //dragon
+  "#B8B8D0", //steel
+  "#F0B6BC", //fairy
 ];
 
 const lightColors = [
-  "#C3C3A2", //
-  "#f0A067", //
-  "#68B0F0", //
-  "#97C87E", //
-  "#F7DB69", //
-  "#BCDEDE", //
-  "#C2615C", //
-  "#A464A4", //
-  "#E2CB8E", //
-  "#C4B4F4", //
-  "#F97fA4", //
-  "#B3BB67", //
-  "#B9AA6B", //
-  "#827499", //
-  "#77695F", //
-  "#9166F9", //
-  "#CFCFD5", //
-  "#F1CACE", //
+  "#C3C3A2", //light normal
+  "#f0A067", //light fire
+  "#68B0F0", //light water
+  "#97C87E", //light grass
+  "#F7DB69", //light electric
+  "#BCDEDE", //light ice
+  "#C2615C", //light fighting
+  "#A464A4", //light poison
+  "#E2CB8E", //light ground
+  "#C4B4F4", //light flying
+  "#F97fA4", //light psychic
+  "#B3BB67", //light bug
+  "#B9AA6B", //light rock
+  "#827499", //light ghost
+  "#77695F", //light dark
+  "#9166F9", //light dragon
+  "#CFCFD5", //light steel
+  "#F1CACE", //light fairy
 ];
 
+//Event Listeners
+searchPokemon.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  let searchValue = document.getElementById("pokemon-search-input").value;
+  getPokemon(searchValue);
+});
+
+//Functionality
 async function getPokemon(identifier) {
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}`);
   const response = await data.json();
 
-  console.log(response);
-  processPokemon(response);
+  createPokemon(response);
 }
 
 function processPokemon(response) {
@@ -79,7 +90,7 @@ function processPokemon(response) {
     moves: handleMoves(response),
     types: handleTypes(response),
   };
-  console.log(tailoredPokemon);
+  return tailoredPokemon;
 }
 
 function handleMoves(response) {
@@ -100,41 +111,78 @@ function handleTypes(response) {
   for (let i = 0; i < response.types.length; i++) {
     types.push(response.types[i].type.name);
   }
-  console.log(types);
   return types;
 }
 
 function handleBackground(typing) {
   let gradientBg;
 
-  if (types.length > 1) {
+  if (typing.length === 2) {
     let indexOne = types.indexOf(typing[0]);
     let primaryColor = colors[indexOne];
 
     let indexTwo = types.indexOf(typing[1]);
     let secondaryColor = colors[indexTwo];
 
-    gradientBg = `linear-gradient(to right, ${primaryColor}, ${secondaryColor};`;
+    gradientBg = `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`;
   } else {
     let indexOne = types.indexOf(typing[0]);
     let primaryColor = colors[indexOne];
 
-    let secondaryColor = colors[indexTwo];
-    gradientBg = `linear-gradient(to right, ${primaryColor}, ${secondaryColor};`;
+    let secondaryColor = lightColors[indexOne];
+    gradientBg = `linear-gradient(to right, ${primaryColor}, ${secondaryColor})`;
   }
 
-  console.log(gradientBg);
+  containerInfo.style.backgroundImage = gradientBg;
 }
 
-function createPokemon() {}
+function createPokemon(response) {
+  const pokemon = processPokemon(response);
 
-searchPokemon.addEventListener("click", (e) => {
-  e.preventDefault();
+  handleBackground(pokemon.types);
+  handleDomMainInfo(pokemon);
+}
 
-  let searchValue = document.getElementById("pokemon-search-input").value;
-  getPokemon(searchValue);
-});
+function emptyNode(parent) {
+  while (parent.firstChild) {
+    parent.firstChild.remove();
+  }
+}
 
-handleBackground(["normal", "fairy"]);
+function handleDomMainInfo(pokemon) {
+  emptyNode(containerPokeballTop);
+  const basicInfoContainer = document.createElement("div");
+  const pokemonName = document.createElement("h1");
+  const pokemonSprite = document.createElement("img");
+  const pokemonType = document.createElement("h3");
 
-//  "#F08030", "#6890F0",
+  pokemonName.textContent = pokemon.name;
+  pokemonSprite.src = pokemon.sprite;
+  pokemonType.textContent =
+    pokemon.types.length > 1
+      ? `${pokemon.types[0]} / ${pokemon.types[1]}`
+      : `${pokemon.types[0]}`;
+
+  basicInfoContainer.id = "info-pokeball-top-basic";
+  pokemonName.id = "info-pokeball-top-basic-name";
+  pokemonSprite.id = "info-pokeball-top-basic-img";
+  pokemonType.id = "info-pokeball-top-basic-type";
+
+  basicInfoContainer.appendChild(pokemonName);
+  basicInfoContainer.appendChild(pokemonSprite);
+  basicInfoContainer.appendChild(pokemonType);
+
+  containerPokeballTop.appendChild(basicInfoContainer);
+}
+
+// {
+//   /* <div id="info-pokeball-top-basic">
+//               <h1 id="info-pokeball-top-basic-name">Charizard</h1>
+//               <img
+//                 id="info-pokeball-top-basic-img"
+//                 src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
+//                 alt=""
+//               />
+//               <h3 id="info-pokeball-top-basic-type">Flying / Fire</h3>
+//             </div> */
+// }
