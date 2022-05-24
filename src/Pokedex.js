@@ -68,7 +68,10 @@ const lightColors = [
 ];
 
 class Pokedex {
-  constructor() {}
+  constructor() {
+    this.allPokemonNames = [];
+    this.offset = 100;
+  }
 
   init() {
     this.currentPokemon = [];

@@ -160,3 +160,23 @@ async function getAndDisplayEvo(evoChainUrl) {
     }
   }
 }
+
+async function getPokemonNames(offset) {
+  const data = await fetch(
+    `https://pokeapi.co/api/v2/pokemon?limit=100&offset=${offset}`
+  );
+  const response = await data.json();
+
+  response.results.forEach((result) => {
+    pokedex.allPokemonNames.push(result.name);
+  });
+  console.log(pokedex.allPokemonNames);
+  offset += 100;
+
+  if (pokedex.offset >= 1126) return;
+  setTimeout(() => {
+    getPokemonNames(offset);
+  }, 5000);
+}
+
+// getPokemonNames(pokedex.offset);
