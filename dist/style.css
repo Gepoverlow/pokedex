@@ -34,7 +34,7 @@ html {
   justify-content: center;
   min-height: 90vh;
   min-width: 100vw;
-  background-image: linear-gradient(to right, red, rgb(140, 182, 202));
+  background-image: linear-gradient(to right, #f08030, #a890f0);
 }
 
 #info-pokeball {

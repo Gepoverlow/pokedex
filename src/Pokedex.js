@@ -123,22 +123,27 @@ class Pokedex {
     const pokemonSprite = document.createElement("img");
     const pokemonType = document.createElement("h3");
 
+    const shinySpan = document.createElement("span");
+
     pokemonName.textContent = pokemon.name;
     pokemonSprite.src = pokemon.sprite;
     pokemonType.textContent =
       pokemon.types.length > 1
         ? `${pokemon.types[0]} / ${pokemon.types[1]}`
         : `${pokemon.types[0]}`;
+    shinySpan.textContent = "Toggle Shiny";
 
     basicInfoContainer.id = "info-pokeball-top-basic";
     pokemonName.id = "info-pokeball-top-basic-name";
     pokemonSprite.id = "info-pokeball-top-basic-img";
     pokemonType.id = "info-pokeball-top-basic-type";
+    shinySpan.id = "info-pokeball-top-shiny-toggle";
 
     basicInfoContainer.appendChild(pokemonName);
     basicInfoContainer.appendChild(pokemonSprite);
     basicInfoContainer.appendChild(pokemonType);
 
+    containerPokeballTop.appendChild(shinySpan);
     containerPokeballTop.appendChild(basicInfoContainer);
   }
 
@@ -148,6 +153,8 @@ class Pokedex {
     const movesTitle = document.createElement("h3");
     const movesList = document.createElement("ul");
 
+    const evoSpan = document.createElement("span");
+
     for (let i = 0; i < pokemon.moves.length; i++) {
       const movesListItem = document.createElement("li");
       movesListItem.textContent = pokemon.moves[i];
@@ -155,14 +162,17 @@ class Pokedex {
     }
 
     movesTitle.textContent = "Moves:";
+    evoSpan.textContent = "Toggle Evo";
 
     movesInfoContainer.id = "info-pokeball-bottom-moves";
     movesTitle.id = "info-pokeball-bottom-moves-title";
     movesList.id = "info-pokeball-bottom-moves-list";
+    evoSpan.id = "info-pokeball-bottom-evo-toggle";
 
     movesInfoContainer.appendChild(movesTitle);
     movesInfoContainer.appendChild(movesList);
 
+    containerPokeballBottom.appendChild(evoSpan);
     containerPokeballBottom.appendChild(movesInfoContainer);
   }
 
