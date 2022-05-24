@@ -187,6 +187,15 @@ class Pokedex {
       currentPokemon[0].isShiny = false;
     }
   }
+
+  handlePokemonNotFound() {
+    this.emptyNode(containerPokeballTop);
+    this.emptyNode(containerPokeballId);
+    this.emptyNode(containerPokeballBottom);
+    const errorMessage = document.createElement("h2");
+    errorMessage.textContent = "Pokemon not found :`(";
+    containerPokeballTop.appendChild(errorMessage);
+  }
 }
 
 export default Pokedex;
