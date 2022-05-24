@@ -10,8 +10,9 @@ searchPokemon.addEventListener("click", (e) => {
   e.preventDefault();
 
   let searchValue = document.getElementById("pokemon-search-input").value;
+  let trimmedSearch = searchValue.trim().toLowerCase();
   pokedex.init();
-  getPokemon(searchValue);
+  getPokemon(trimmedSearch);
 });
 
 //Event Delegation
@@ -26,6 +27,10 @@ document.addEventListener("click", (e) => {
     getEvolutions(pokedex.currentPokemon[0].speciesUrl);
   }
 
+  if (e.target.id === "info-pokeball-bottom-moves-toggle") {
+    pokedex.handleDomMovesInfo(pokedex.currentPokemon[0]);
+  }
+
   if (e.target.className === "evolution") {
     pokedex.init();
     getPokemon(e.target.id);
@@ -33,6 +38,7 @@ document.addEventListener("click", (e) => {
 });
 
 //Async Code
+
 async function getPokemon(identifier) {
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}`);
   const response = await data.json();
@@ -68,9 +74,16 @@ async function getAndDisplayEvo(evoChainUrl) {
     evoData = evoData["evolves_to"][0];
   } while (!!evoData && evoData.hasOwnProperty("evolves_to"));
 
-  evolutionChain.forEach((evolution) =>
-    pokedex.currentPokemon[0].evolutionLine.push(evolution)
-  );
+  if (pokedex.currentPokemon[0].evolutionLine.length === 0) {
+    evolutionChain.forEach((evolution) =>
+      pokedex.currentPokemon[0].evolutionLine.push(evolution)
+    );
+  }
+
+  const movesSpan = document.createElement("span");
+  movesSpan.textContent = "See Moves";
+  movesSpan.id = "info-pokeball-bottom-moves-toggle";
+  containerPokeballBottom.appendChild(movesSpan);
 
   for (let i = 0; i < pokedex.currentPokemon[0].evolutionLine.length; i++) {
     let evoData = await getEvolutionInfo(

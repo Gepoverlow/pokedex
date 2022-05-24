@@ -9,6 +9,7 @@ class Pokemon {
     this.types = this.handleTypes(response);
     this.isShiny = false;
     this.evolutionLine = [];
+    this.isFavorite = false;
   }
 
   handleMoves(response) {
@@ -43,6 +44,14 @@ class Pokemon {
       return `#0${id}`;
     } else {
       return `#${id}`;
+    }
+  }
+
+  handleFavorite() {
+    if (!this.isFavorite) {
+      this.isFavorite = true;
+    } else if (this.isFavorite) {
+      this.isFavorite = false;
     }
   }
 }

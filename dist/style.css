@@ -110,7 +110,8 @@ html {
   overflow: hidden;
 }
 
-#info-pokeball-bottom-evo-toggle {
+#info-pokeball-bottom-evo-toggle,
+#info-pokeball-bottom-moves-toggle {
   position: absolute;
   top: 0;
   right: 0;

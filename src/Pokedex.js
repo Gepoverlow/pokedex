@@ -158,7 +158,7 @@ class Pokedex {
     }
 
     movesTitle.textContent = "Moves:";
-    evoSpan.textContent = "Toggle Evo";
+    evoSpan.textContent = "See Evo";
 
     movesInfoContainer.id = "info-pokeball-bottom-moves";
     movesTitle.id = "info-pokeball-bottom-moves-title";
@@ -190,15 +190,3 @@ class Pokedex {
 }
 
 export default Pokedex;
-
-{
-  /* <div id="info-pokeball-bottom-moves">
-              <h3 id="info-pokeball-bottom-moves-title">Moves</h3>
-              <ul id="info-pokeball-bottom-moves-list">
-                <li>A random Attack</li>
-                <li>A random Attack</li>
-                <li>A random Attack</li>
-                <li>A random Attack</li>
-              </ul>
-            </div> */
-}
