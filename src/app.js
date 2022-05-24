@@ -23,7 +23,7 @@ document.addEventListener("click", (e) => {
 
   if (e.target.id === "info-pokeball-bottom-evo-toggle") {
     pokedex.emptyNode(containerPokeballBottom);
-    getAndDisplayEvoLine(pokedex.currentPokemon[0].speciesUrl);
+    getEvolutions(pokedex.currentPokemon[0].speciesUrl);
   }
 });
 
@@ -35,21 +35,22 @@ async function getPokemon(identifier) {
   pokedex.createPokemon(response);
 }
 
-async function getEvolutionsSprites(identifier) {
+async function getEvolutionInfo(identifier) {
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}`);
   const response = await data.json();
 
-  return response.sprites.front_default;
+  const evoData = [response.sprites.front_default, response.name];
+  return evoData;
 }
 
-async function getAndDisplayEvoLine(speciesUrl) {
+async function getEvolutions(speciesUrl) {
   const data = await fetch(speciesUrl);
   const response = await data.json();
 
-  await getEvolutions(response.evolution_chain.url);
+  await getAndDisplayEvo(response.evolution_chain.url);
 }
 
-async function getEvolutions(evoChainUrl) {
+async function getAndDisplayEvo(evoChainUrl) {
   const data = await fetch(evoChainUrl);
   const response = await data.json();
 
@@ -67,10 +68,14 @@ async function getEvolutions(evoChainUrl) {
   );
 
   for (let i = 0; i < pokedex.currentPokemon[0].evolutionLine.length; i++) {
-    let evoImg = document.createElement("img");
-    evoImg.src = await getEvolutionsSprites(
+    let evoData = await getEvolutionInfo(
       `${pokedex.currentPokemon[0].evolutionLine[i]}`
     );
+    console.log(evoData);
+    let evoImg = document.createElement("img");
+    evoImg.src = evoData[0];
+    evoImg.id = evoData[1];
+    evoImg.className = "evolution";
     containerPokeballBottom.appendChild(evoImg);
   }
 }
