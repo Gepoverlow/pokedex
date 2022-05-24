@@ -25,6 +25,11 @@ document.addEventListener("click", (e) => {
     pokedex.emptyNode(containerPokeballBottom);
     getEvolutions(pokedex.currentPokemon[0].speciesUrl);
   }
+
+  if (e.target.className === "evolution") {
+    pokedex.init();
+    getPokemon(e.target.id);
+  }
 });
 
 //Async Code
