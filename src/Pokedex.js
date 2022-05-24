@@ -2,6 +2,7 @@ import Pokemon from "./Pokemon";
 
 const containerInfo = document.getElementById("container-info");
 const containerPokeballTop = document.getElementById("info-pokeball-top");
+const containerPokeballBottom = document.getElementById("info-pokeball-bottom");
 
 const types = [
   "normal",
@@ -79,32 +80,11 @@ class Pokedex {
 
     this.handleBackground(this.pokemon.types);
     this.handleDomMainInfo(this.pokemon);
+    this.handleDomMovesInfo(this.pokemon);
   }
 
-  handleDomMainInfo(pokemon) {
-    this.emptyNode(containerPokeballTop);
-    const basicInfoContainer = document.createElement("div");
-    const pokemonName = document.createElement("h1");
-    const pokemonSprite = document.createElement("img");
-    const pokemonType = document.createElement("h3");
-
-    pokemonName.textContent = pokemon.name;
-    pokemonSprite.src = pokemon.sprite;
-    pokemonType.textContent =
-      pokemon.types.length > 1
-        ? `${pokemon.types[0]} / ${pokemon.types[1]}`
-        : `${pokemon.types[0]}`;
-
-    basicInfoContainer.id = "info-pokeball-top-basic";
-    pokemonName.id = "info-pokeball-top-basic-name";
-    pokemonSprite.id = "info-pokeball-top-basic-img";
-    pokemonType.id = "info-pokeball-top-basic-type";
-
-    basicInfoContainer.appendChild(pokemonName);
-    basicInfoContainer.appendChild(pokemonSprite);
-    basicInfoContainer.appendChild(pokemonType);
-
-    containerPokeballTop.appendChild(basicInfoContainer);
+  log() {
+    console.log(this.currentPokemon);
   }
 
   handleBackground(typing) {
@@ -134,6 +114,68 @@ class Pokedex {
       parent.firstChild.remove();
     }
   }
+
+  handleDomMainInfo(pokemon) {
+    this.emptyNode(containerPokeballTop);
+    const basicInfoContainer = document.createElement("div");
+    const pokemonName = document.createElement("h1");
+    const pokemonSprite = document.createElement("img");
+    const pokemonType = document.createElement("h3");
+
+    pokemonName.textContent = pokemon.name;
+    pokemonSprite.src = pokemon.sprite;
+    pokemonType.textContent =
+      pokemon.types.length > 1
+        ? `${pokemon.types[0]} / ${pokemon.types[1]}`
+        : `${pokemon.types[0]}`;
+
+    basicInfoContainer.id = "info-pokeball-top-basic";
+    pokemonName.id = "info-pokeball-top-basic-name";
+    pokemonSprite.id = "info-pokeball-top-basic-img";
+    pokemonType.id = "info-pokeball-top-basic-type";
+
+    basicInfoContainer.appendChild(pokemonName);
+    basicInfoContainer.appendChild(pokemonSprite);
+    basicInfoContainer.appendChild(pokemonType);
+
+    containerPokeballTop.appendChild(basicInfoContainer);
+  }
+
+  handleDomMovesInfo(pokemon) {
+    this.emptyNode(containerPokeballBottom);
+    const movesInfoContainer = document.createElement("div");
+    const movesTitle = document.createElement("h3");
+    const movesList = document.createElement("ul");
+
+    for (let i = 0; i < pokemon.moves.length; i++) {
+      const movesListItem = document.createElement("li");
+      movesListItem.textContent = pokemon.moves[i];
+      movesList.appendChild(movesListItem);
+    }
+
+    movesTitle.textContent = "Moves:";
+
+    movesInfoContainer.id = "info-pokeball-bottom-moves";
+    movesTitle.id = "info-pokeball-bottom-moves-title";
+    movesList.id = "info-pokeball-bottom-moves-list";
+
+    movesInfoContainer.appendChild(movesTitle);
+    movesInfoContainer.appendChild(movesList);
+
+    containerPokeballBottom.appendChild(movesInfoContainer);
+  }
 }
 
 export default Pokedex;
+
+{
+  /* <div id="info-pokeball-bottom-moves">
+              <h3 id="info-pokeball-bottom-moves-title">Moves</h3>
+              <ul id="info-pokeball-bottom-moves-list">
+                <li>A random Attack</li>
+                <li>A random Attack</li>
+                <li>A random Attack</li>
+                <li>A random Attack</li>
+              </ul>
+            </div> */
+}

@@ -1,5 +1,4 @@
 import Pokedex from "./Pokedex.js";
-import Pokemon from "./Pokemon.js";
 
 const searchPokemon = document.getElementById("pokemon-search-button");
 
