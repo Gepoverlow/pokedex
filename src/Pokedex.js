@@ -3,7 +3,7 @@ import Pokemon from "./Pokemon";
 const containerInfo = document.getElementById("container-info");
 const containerPokeballTop = document.getElementById("info-pokeball-top");
 const containerPokeballBottom = document.getElementById("info-pokeball-bottom");
-
+const containerPokeballId = document.getElementById("info-pokeball-id");
 const types = [
   "normal",
   "fire",
@@ -81,6 +81,7 @@ class Pokedex {
     this.handleBackground(this.pokemon.types);
     this.handleDomMainInfo(this.pokemon);
     this.handleDomMovesInfo(this.pokemon);
+    this.handleDomIdInfo(this.pokemon);
   }
 
   log() {
@@ -163,6 +164,10 @@ class Pokedex {
     movesInfoContainer.appendChild(movesList);
 
     containerPokeballBottom.appendChild(movesInfoContainer);
+  }
+
+  handleDomIdInfo(pokemon) {
+    containerPokeballId.textContent = pokemon.id;
   }
 }
 
