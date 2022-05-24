@@ -84,10 +84,6 @@ class Pokedex {
     this.handleDomIdInfo(this.pokemon);
   }
 
-  log() {
-    console.log(this.currentPokemon);
-  }
-
   handleBackground(typing) {
     let gradientBg;
 

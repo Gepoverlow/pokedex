@@ -2,11 +2,13 @@ class Pokemon {
   constructor(response) {
     this.id = this.handleIdFormatting(response.id);
     this.name = this.handleCapitalizedName(response.name);
+    this.speciesUrl = response.species.url;
     this.sprite = response.sprites.front_default;
     this.shinySprite = response.sprites.front_shiny;
     this.moves = this.handleMoves(response);
     this.types = this.handleTypes(response);
     this.isShiny = false;
+    this.evolutionLine = [];
   }
 
   handleMoves(response) {
