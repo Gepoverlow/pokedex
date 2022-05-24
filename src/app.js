@@ -71,7 +71,6 @@ async function getAndDisplayEvo(evoChainUrl) {
     let evoData = await getEvolutionInfo(
       `${pokedex.currentPokemon[0].evolutionLine[i]}`
     );
-    console.log(evoData);
     let evoImg = document.createElement("img");
     evoImg.src = evoData[0];
     evoImg.id = evoData[1];
