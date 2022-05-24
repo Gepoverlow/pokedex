@@ -17,6 +17,7 @@ html {
 }
 
 #container-search {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,6 +26,24 @@ html {
   background-color: #e4000f;
   color: white;
   gap: 2rem;
+}
+
+#pokemon-search-autocomplete {
+  position: absolute;
+  z-index: 1;
+  top: 10vh;
+  margin-left: 50px;
+  max-height: 200px;
+  width: 150px;
+  background-color: rgb(199, 182, 182);
+  list-style-type: none;
+  padding: 5px;
+  overflow-y: scroll;
+}
+
+#pokemon-search-autocomplet > {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 #container-info {
