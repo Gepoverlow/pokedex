@@ -179,6 +179,18 @@ class Pokedex {
   handleDomIdInfo(pokemon) {
     containerPokeballId.textContent = pokemon.id;
   }
+
+  handleShinyToggle(currentPokemon) {
+    if (currentPokemon[0].isShiny === false) {
+      document.getElementById("info-pokeball-top-basic-img").src =
+        this.pokemon.shinySprite;
+      currentPokemon[0].isShiny = true;
+    } else {
+      document.getElementById("info-pokeball-top-basic-img").src =
+        this.pokemon.sprite;
+      currentPokemon[0].isShiny = false;
+    }
+  }
 }
 
 export default Pokedex;

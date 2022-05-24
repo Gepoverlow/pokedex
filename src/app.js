@@ -13,10 +13,20 @@ searchPokemon.addEventListener("click", (e) => {
   getPokemon(searchValue);
 });
 
+//Event Delegation
+
+document.addEventListener("click", (e) => {
+  if (e.target.id === "info-pokeball-top-shiny-toggle") {
+    pokedex.handleShinyToggle(pokedex.currentPokemon);
+  }
+});
+
 //Functionality
 async function getPokemon(identifier) {
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}`);
   const response = await data.json();
+
+  console.log(response);
 
   pokedex.createPokemon(response);
 }
