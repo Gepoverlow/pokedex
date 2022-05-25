@@ -140,7 +140,6 @@ async function getEvolutionData(identifier) {
 async function getEvolutions(speciesUrl) {
   const data = await fetch(speciesUrl);
   const response = await data.json();
-  console.log(response);
 
   await handleEvolutionData(response.evolution_chain.url);
   await displayEvolutions();
@@ -148,7 +147,10 @@ async function getEvolutions(speciesUrl) {
 
 async function getPokemonId(pokemonName) {
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+  if (data.status === 404) return; //
   const response = await data.json();
+
+  console.log(response);
 
   return response.id;
 }
@@ -205,12 +207,11 @@ async function getPokemonNames(offset) {
   response.results.forEach((result) => {
     pokedex.allPokemonNames.push(result.name);
   });
-  console.log(pokedex.allPokemonNames);
   pokedex.offset += 151;
 
   if (pokedex.offset >= 1200) return;
   setTimeout(() => {
     getPokemonNames(pokedex.offset);
-  }, 2000);
+  }, 1000);
 }
-//getPokemonNames(pokedex.offset);
+getPokemonNames(pokedex.offset);
