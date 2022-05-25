@@ -144,6 +144,14 @@ async function getEvolutions(speciesUrl) {
   await getAndDisplayEvo(response.evolution_chain.url);
 }
 
+async function getPokemonId(pokemonName) {
+  console.log(pokemonName);
+  const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+  const response = await data.json();
+
+  return response.id;
+}
+
 async function getAndDisplayEvo(evoChainUrl) {
   const data = await fetch(evoChainUrl);
   const response = await data.json();
@@ -152,7 +160,10 @@ async function getAndDisplayEvo(evoChainUrl) {
   let evoData = response.chain;
 
   do {
-    evolutionChain.push(evoData.species.name);
+    evolutionChain.push({
+      name: evoData.species.name,
+      id: await getPokemonId(evoData.species.name),
+    });
 
     evoData = evoData["evolves_to"][0];
   } while (!!evoData && evoData.hasOwnProperty("evolves_to"));
@@ -170,7 +181,7 @@ async function getAndDisplayEvo(evoChainUrl) {
 
   for (let i = 0; i < pokedex.currentPokemon[0].evolutionLine.length; i++) {
     let evoData = await getEvolutionInfo(
-      `${pokedex.currentPokemon[0].evolutionLine[i]}`
+      `${pokedex.currentPokemon[0].evolutionLine[i].id}`
     );
     if (evoData) {
       let evoImg = document.createElement("img");
@@ -184,7 +195,7 @@ async function getAndDisplayEvo(evoChainUrl) {
 
 async function getPokemonNames(offset) {
   const data = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?limit=10&offset=${offset}`
+    `https://pokeapi.co/api/v2/pokemon?limit=151&offset=${offset}`
   );
   const response = await data.json();
 
@@ -192,7 +203,7 @@ async function getPokemonNames(offset) {
     pokedex.allPokemonNames.push(result.name);
   });
   console.log(pokedex.allPokemonNames);
-  pokedex.offset += 10;
+  pokedex.offset += 151;
 
   if (pokedex.offset >= 10) return;
   setTimeout(() => {
@@ -200,4 +211,4 @@ async function getPokemonNames(offset) {
   }, 5000);
 }
 
-getPokemonNames(pokedex.offset);
+//getPokemonNames(pokedex.offset);
