@@ -24,7 +24,7 @@ html {
   height: 10vh;
   width: 100vw;
   background-color: #e4000f;
-  color: white;
+  color: rgb(240, 232, 232);
   gap: 2rem;
 }
 
@@ -32,19 +32,26 @@ html {
   position: absolute;
   z-index: 1;
   top: 10vh;
-  margin-left: 50px;
+  margin-left: 20px;
   max-height: 200px;
   width: 150px;
-  background-color: rgb(199, 182, 182);
+  background-color: rgba(199, 182, 182, 0.5);
   list-style-type: none;
   overflow-y: scroll;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
-#pokemon-search-autocomplete > li {
+.auto-search-suggestion {
   padding-top: 2px;
   padding-left: 5px;
   padding-right: 5px;
   padding-bottom: 2px;
+}
+
+.auto-search-suggestion:hover {
+  background-color: gray;
+  cursor: pointer;
 }
 
 #container-info {
