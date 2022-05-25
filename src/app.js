@@ -69,6 +69,7 @@ searchPokemon.addEventListener("click", (e) => {
   if (trimmedSearch.length !== 0) {
     pokedex.init();
     getPokemon(trimmedSearch);
+    searchInput.value = "";
   }
 });
 
