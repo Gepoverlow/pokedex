@@ -124,7 +124,6 @@ async function getPokemon(identifier) {
     const response = await data.json();
 
     pokedex.createPokemon(response);
-    console.log(pokedex.pokemon.evolutionLine);
   }
 }
 
@@ -144,7 +143,6 @@ async function getEvolutions(speciesUrl) {
   console.log(response);
 
   await handleEvolutionData(response.evolution_chain.url);
-  console.log(pokedex.currentPokemon[0].evolutionLine);
   await displayEvolutions();
 }
 
@@ -210,10 +208,9 @@ async function getPokemonNames(offset) {
   console.log(pokedex.allPokemonNames);
   pokedex.offset += 151;
 
-  if (pokedex.offset >= 10) return;
+  if (pokedex.offset >= 1200) return;
   setTimeout(() => {
-    getPokemonNames(offset);
-  }, 5000);
+    getPokemonNames(pokedex.offset);
+  }, 2000);
 }
-
 //getPokemonNames(pokedex.offset);
