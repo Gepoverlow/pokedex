@@ -13,11 +13,10 @@ class Pokemon {
   }
 
   handleMoves(response) {
-    console.log(response);
     const moves = [];
 
     if (response.moves.length === 0) {
-      console.log("moves not found");
+      console.log("moves not found"); //
     } else if (response.moves.length === 1) {
       moves.push(response.moves[0].move.name);
     } else {

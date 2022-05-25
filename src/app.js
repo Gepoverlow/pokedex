@@ -218,4 +218,4 @@ async function getPokemonNames(offset) {
     getPokemonNames(pokedex.offset);
   }, 1000);
 }
-//getPokemonNames(pokedex.offset);
+getPokemonNames(pokedex.offset);
