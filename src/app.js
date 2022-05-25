@@ -163,9 +163,13 @@ async function handleEvolutionData(chainUrl) {
   let evoData = response.chain;
 
   do {
+    let baseString = evoData.species.url;
+    let splicedString = baseString.slice(42, baseString.length - 1);
+
     evolutionChain.push({
       name: evoData.species.name,
-      id: await getPokemonId(evoData.species.name),
+      id: splicedString,
+      // id: await getPokemonId(evoData.species.name),
     });
 
     evoData = evoData["evolves_to"][0];
@@ -214,4 +218,4 @@ async function getPokemonNames(offset) {
     getPokemonNames(pokedex.offset);
   }, 1000);
 }
-getPokemonNames(pokedex.offset);
+//getPokemonNames(pokedex.offset);
