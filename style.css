@@ -37,13 +37,14 @@ html {
   width: 150px;
   background-color: rgb(199, 182, 182);
   list-style-type: none;
-  padding: 5px;
   overflow-y: scroll;
 }
 
-#pokemon-search-autocomplet > {
-  padding-top: 5px;
-  padding-bottom: 5px;
+#pokemon-search-autocomplete > li {
+  padding-top: 2px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 2px;
 }
 
 #container-info {
