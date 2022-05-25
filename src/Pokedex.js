@@ -4,6 +4,9 @@ const containerInfo = document.getElementById("container-info");
 const containerPokeballTop = document.getElementById("info-pokeball-top");
 const containerPokeballBottom = document.getElementById("info-pokeball-bottom");
 const containerPokeballId = document.getElementById("info-pokeball-id");
+
+const autoComplete = document.getElementById("pokemon-search-autocomplete");
+
 const types = [
   "normal",
   "fire",
@@ -70,7 +73,8 @@ const lightColors = [
 class Pokedex {
   constructor() {
     this.allPokemonNames = [];
-    this.offset = 100;
+    this.filteredPokemons = [];
+    this.offset = 0;
   }
 
   init() {
@@ -198,6 +202,27 @@ class Pokedex {
     const errorMessage = document.createElement("h2");
     errorMessage.textContent = "Pokemon not found :`(";
     containerPokeballTop.appendChild(errorMessage);
+  }
+
+  filterPokemons(input) {
+    this.filteredPokemons = this.allPokemonNames.filter((name) =>
+      name.includes(input)
+    );
+    if (input) {
+      this.displayFilteredPokemons(this.filteredPokemons);
+    } else {
+      this.emptyNode(autoComplete);
+    }
+  }
+
+  displayFilteredPokemons(filteredArray) {
+    this.emptyNode(autoComplete);
+
+    for (let i = 0; i < filteredArray.length; i++) {
+      const li = document.createElement("li");
+      li.textContent = filteredArray[i];
+      autoComplete.appendChild(li);
+    }
   }
 }
 

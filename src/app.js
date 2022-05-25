@@ -53,6 +53,7 @@ const oddNames = [
   "castform-sunny",
 ];
 
+const searchInput = document.getElementById("pokemon-search-input");
 const searchPokemon = document.getElementById("pokemon-search-button");
 const containerPokeballBottom = document.getElementById("info-pokeball-bottom");
 
@@ -69,6 +70,12 @@ searchPokemon.addEventListener("click", (e) => {
     pokedex.init();
     getPokemon(trimmedSearch);
   }
+});
+
+searchInput.addEventListener("keyup", () => {
+  let searchInputValue = searchInput.value;
+
+  pokedex.filterPokemons(searchInputValue);
 });
 
 //Event Delegation
@@ -163,7 +170,7 @@ async function getAndDisplayEvo(evoChainUrl) {
 
 async function getPokemonNames(offset) {
   const data = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?limit=100&offset=${offset}`
+    `https://pokeapi.co/api/v2/pokemon?limit=151&offset=${offset}`
   );
   const response = await data.json();
 
@@ -171,12 +178,12 @@ async function getPokemonNames(offset) {
     pokedex.allPokemonNames.push(result.name);
   });
   console.log(pokedex.allPokemonNames);
-  offset += 100;
+  pokedex.offset += 151;
 
-  if (pokedex.offset >= 1126) return;
+  if (pokedex.offset >= 151) return;
   setTimeout(() => {
     getPokemonNames(offset);
   }, 5000);
 }
 
-// getPokemonNames(pokedex.offset);
+//getPokemonNames(pokedex.offset);
