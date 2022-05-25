@@ -124,10 +124,11 @@ async function getPokemon(identifier) {
     const response = await data.json();
 
     pokedex.createPokemon(response);
+    console.log(pokedex.pokemon.evolutionLine);
   }
 }
 
-async function getEvolutionInfo(identifier) {
+async function getEvolutionData(identifier) {
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${identifier}`);
   if (data.status === 404) return;
   const response = await data.json();
@@ -140,20 +141,22 @@ async function getEvolutionInfo(identifier) {
 async function getEvolutions(speciesUrl) {
   const data = await fetch(speciesUrl);
   const response = await data.json();
+  console.log(response);
 
-  await getAndDisplayEvo(response.evolution_chain.url);
+  await handleEvolutionData(response.evolution_chain.url);
+  console.log(pokedex.currentPokemon[0].evolutionLine);
+  await displayEvolutions();
 }
 
 async function getPokemonId(pokemonName) {
-  console.log(pokemonName);
   const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
   const response = await data.json();
 
   return response.id;
 }
 
-async function getAndDisplayEvo(evoChainUrl) {
-  const data = await fetch(evoChainUrl);
+async function handleEvolutionData(chainUrl) {
+  const data = await fetch(chainUrl);
   const response = await data.json();
 
   let evolutionChain = [];
@@ -173,14 +176,16 @@ async function getAndDisplayEvo(evoChainUrl) {
       pokedex.currentPokemon[0].evolutionLine.push(evolution)
     );
   }
+}
 
+async function displayEvolutions() {
   const movesSpan = document.createElement("span");
   movesSpan.textContent = "See Moves";
   movesSpan.id = "info-pokeball-bottom-moves-toggle";
   containerPokeballBottom.appendChild(movesSpan);
 
   for (let i = 0; i < pokedex.currentPokemon[0].evolutionLine.length; i++) {
-    let evoData = await getEvolutionInfo(
+    let evoData = await getEvolutionData(
       `${pokedex.currentPokemon[0].evolutionLine[i].id}`
     );
     if (evoData) {
