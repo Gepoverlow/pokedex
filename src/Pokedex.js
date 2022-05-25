@@ -221,6 +221,7 @@ class Pokedex {
     for (let i = 0; i < filteredArray.length; i++) {
       const li = document.createElement("li");
       li.textContent = filteredArray[i];
+      li.className = "auto-search-suggestion";
       autoComplete.appendChild(li);
     }
   }

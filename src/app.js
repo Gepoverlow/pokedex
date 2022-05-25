@@ -1,61 +1,64 @@
 import Pokedex from "./Pokedex.js";
 
-const oddNames = [
-  "mr-mime",
-  "darmanitan-standard",
-  "deoxys-attack",
-  "deoxys-defense",
-  "deoxys-normal",
-  "wormadam-plant",
-  "mime-jr",
-  "porygon-z",
-  "giratina-altered",
-  "shaymin-land",
-  "basculin-red-striped",
-  "tornadus-incarnate",
-  "thundurus-incarnate",
-  "landorus-incarnate",
-  "keldeo-ordinary",
-  "meloetta-aria",
-  "meowstic-male",
-  "aegislash-shield",
-  "pumpkaboo-average",
-  "gourgeist-average",
-  "zygarde-50",
-  "lycanroc-midday",
-  "wishiwashi-solo",
-  "type-null",
-  "minior-red-meteor",
-  "mimikyu-disguised",
-  "jangmo-o",
-  "hakamo-o",
-  "kommo-o",
-  "tapu-koko",
-  "tapu-lele",
-  "tapu-bulu",
-  "tapu-fini",
-  "toxtricity-amped",
-  "mr-rime",
-  "eiscue-ice",
-  "indeedee-male",
-  "morpeko-full-belly",
-  "urshifu-single-strike",
-  "deoxys-speed",
-  "wormadam-sandy",
-  "wormadam-trash",
-  "shaymin-sky",
-  "giratina-origin",
-  "rotom-heat",
-  "rotom-wash",
-  "rotom-frost",
-  "rotom-fan",
-  "rotom-mow",
-  "castform-sunny",
-];
+// const oddNames = [
+//   "mr-mime",
+//   "darmanitan-standard",
+//   "deoxys-attack",
+//   "deoxys-defense",
+//   "deoxys-normal",
+//   "wormadam-plant",
+//   "mime-jr",
+//   "porygon-z",
+//   "giratina-altered",
+//   "shaymin-land",
+//   "basculin-red-striped",
+//   "tornadus-incarnate",
+//   "thundurus-incarnate",
+//   "landorus-incarnate",
+//   "keldeo-ordinary",
+//   "meloetta-aria",
+//   "meowstic-male",
+//   "aegislash-shield",
+//   "pumpkaboo-average",
+//   "gourgeist-average",
+//   "zygarde-50",
+//   "lycanroc-midday",
+//   "wishiwashi-solo",
+//   "type-null",
+//   "minior-red-meteor",
+//   "mimikyu-disguised",
+//   "jangmo-o",
+//   "hakamo-o",
+//   "kommo-o",
+//   "tapu-koko",
+//   "tapu-lele",
+//   "tapu-bulu",
+//   "tapu-fini",
+//   "toxtricity-amped",
+//   "mr-rime",
+//   "eiscue-ice",
+//   "indeedee-male",
+//   "morpeko-full-belly",
+//   "urshifu-single-strike",
+//   "deoxys-speed",
+//   "wormadam-sandy",
+//   "wormadam-trash",
+//   "shaymin-sky",
+//   "giratina-origin",
+//   "rotom-heat",
+//   "rotom-wash",
+//   "rotom-frost",
+//   "rotom-fan",
+//   "rotom-mow",
+//   "castform-sunny",
+// ];
 
 const searchInput = document.getElementById("pokemon-search-input");
 const searchPokemon = document.getElementById("pokemon-search-button");
 const containerPokeballBottom = document.getElementById("info-pokeball-bottom");
+const containerSuggestions = document.getElementById(
+  "pokemon-search-autocomplete"
+);
 
 const pokedex = new Pokedex();
 
@@ -68,15 +71,16 @@ searchPokemon.addEventListener("click", (e) => {
 
   if (trimmedSearch.length !== 0) {
     pokedex.init();
-    getPokemon(trimmedSearch);
     searchInput.value = "";
+    getPokemon(trimmedSearch);
   }
 });
 
 searchInput.addEventListener("keyup", () => {
   let searchInputValue = searchInput.value;
+  let tailoredInputValue = searchInputValue.trim().toLowerCase();
 
-  pokedex.filterPokemons(searchInputValue);
+  pokedex.filterPokemons(tailoredInputValue);
 });
 
 //Event Delegation
@@ -98,6 +102,15 @@ document.addEventListener("click", (e) => {
   if (e.target.className === "evolution") {
     pokedex.init();
     getPokemon(e.target.id);
+  }
+
+  if (e.target.className === "auto-search-suggestion") {
+    searchInput.value = e.target.innerText;
+    pokedex.filteredPokemons = [];
+    pokedex.emptyNode(containerSuggestions);
+    searchInput.focus();
+  } else {
+    pokedex.emptyNode(containerSuggestions);
   }
 });
 
@@ -171,7 +184,7 @@ async function getAndDisplayEvo(evoChainUrl) {
 
 async function getPokemonNames(offset) {
   const data = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?limit=151&offset=${offset}`
+    `https://pokeapi.co/api/v2/pokemon?limit=10&offset=${offset}`
   );
   const response = await data.json();
 
@@ -179,12 +192,12 @@ async function getPokemonNames(offset) {
     pokedex.allPokemonNames.push(result.name);
   });
   console.log(pokedex.allPokemonNames);
-  pokedex.offset += 151;
+  pokedex.offset += 10;
 
-  if (pokedex.offset >= 151) return;
+  if (pokedex.offset >= 10) return;
   setTimeout(() => {
     getPokemonNames(offset);
   }, 5000);
 }
 
-//getPokemonNames(pokedex.offset);
+getPokemonNames(pokedex.offset);
