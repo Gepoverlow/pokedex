@@ -129,7 +129,6 @@ async function handleEvolutionData(chainUrl) {
   } while (!!evoData && evoData.hasOwnProperty("evolves_to"));
 
   let removedDuplicates = removeDuplicateObjects(evolutionChain);
-  console.log(removedDuplicates);
   if (pokedex.currentPokemon[0].evolutionLine.length === 0) {
     removedDuplicates.forEach((evolution) =>
       pokedex.currentPokemon[0].evolutionLine.push(evolution)
@@ -143,6 +142,9 @@ async function displayEvolutions() {
   movesSpan.id = "info-pokeball-bottom-moves-toggle";
   containerPokeballBottom.appendChild(movesSpan);
 
+  const evolutionContainer = document.createElement("div");
+  evolutionContainer.id = "info-pokeball-bottom-evo-container";
+
   for (let i = 0; i < pokedex.currentPokemon[0].evolutionLine.length; i++) {
     let evoData = await getEvolutionData(`${pokedex.currentPokemon[0].evolutionLine[i].id}`);
     if (evoData) {
@@ -150,9 +152,10 @@ async function displayEvolutions() {
       evoImg.src = evoData[0];
       evoImg.id = evoData[1];
       evoImg.className = "evolution";
-      containerPokeballBottom.appendChild(evoImg);
+      evolutionContainer.appendChild(evoImg);
     }
   }
+  containerPokeballBottom.appendChild(evolutionContainer);
 }
 
 function removeDuplicateObjects(array) {

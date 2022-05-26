@@ -3,6 +3,7 @@ import Pokemon from "./Pokemon";
 const containerInfo = document.getElementById("container-info");
 const containerPokeballTop = document.getElementById("info-pokeball-top");
 const containerPokeballBottom = document.getElementById("info-pokeball-bottom");
+const containerPokeballBottomEvo = document.getElementById("info-pokeball-bottom-evolutions");
 const containerPokeballId = document.getElementById("info-pokeball-id");
 
 const autoComplete = document.getElementById("pokemon-search-autocomplete");
