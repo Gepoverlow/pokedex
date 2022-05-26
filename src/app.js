@@ -112,10 +112,19 @@ async function handleEvolutionData(chainUrl) {
         let splicedString = baseString.slice(42, baseString.length - 1);
 
         evolutionChain.push({ name: evoData.evolves_to[i].species.name, id: splicedString });
+
+        if (evoData.evolves_to[i].evolves_to.length > 0) {
+          let baseStringDupe = evoData.evolves_to[i].evolves_to[0].species.url;
+          let splicedStringDupe = baseStringDupe.slice(42, baseString.length - 1);
+
+          evolutionChain.push({
+            name: evoData.evolves_to[i].evolves_to[0].species.name,
+            id: splicedStringDupe,
+          });
+        }
       }
     }
 
-    console.log(evoData);
     evoData = evoData["evolves_to"][0];
   } while (!!evoData && evoData.hasOwnProperty("evolves_to"));
 
