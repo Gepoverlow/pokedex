@@ -175,3 +175,21 @@ html {
   align-items: center;
   justify-content: center;
 }
+
+#pokemon-search-input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 1px solid black;
+  outline: 0;
+  color: rgb(30, 28, 28);
+  margin-bottom: 2px;
+}
+
+::placeholder {
+  color: rgba(251, 233, 233, 0.5);
+}
+
+#info-pokeball-bottom-moves {
+  height: 100%;
+  width: 100%;
+}
