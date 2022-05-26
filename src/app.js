@@ -106,11 +106,25 @@ async function handleEvolutionData(chainUrl) {
       id: splicedString,
     });
 
+    if (evoData.evolves_to.length > 1) {
+      for (let i = 0; i < evoData.evolves_to.length; i++) {
+        let baseString = evoData.evolves_to[i].species.url;
+        let splicedString = baseString.slice(42, baseString.length - 1);
+
+        evolutionChain.push({ name: evoData.evolves_to[i].species.name, id: splicedString });
+      }
+    }
+
+    console.log(evoData);
     evoData = evoData["evolves_to"][0];
   } while (!!evoData && evoData.hasOwnProperty("evolves_to"));
 
+  let removedDuplicates = removeDuplicateObjects(evolutionChain);
+  console.log(removedDuplicates);
   if (pokedex.currentPokemon[0].evolutionLine.length === 0) {
-    evolutionChain.forEach((evolution) => pokedex.currentPokemon[0].evolutionLine.push(evolution));
+    removedDuplicates.forEach((evolution) =>
+      pokedex.currentPokemon[0].evolutionLine.push(evolution)
+    );
   }
 }
 
@@ -130,6 +144,10 @@ async function displayEvolutions() {
       containerPokeballBottom.appendChild(evoImg);
     }
   }
+}
+
+function removeDuplicateObjects(array) {
+  return [...new Set(array.map((s) => JSON.stringify(s)))].map((s) => JSON.parse(s));
 }
 
 async function getPokemonNames(offset) {
