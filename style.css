@@ -161,12 +161,14 @@ html {
 
 #info-pokeball-bottom-moves-list {
   list-style: none;
-  padding-top: 1em;
+  overflow: scroll;
 }
 
 #info-pokeball-bottom-moves-list > li {
   list-style: none;
   padding-top: 0.2em;
+  display: inline-block;
+  padding-right: 20px;
 }
 
 #info-pokeball-bottom-evo {
@@ -192,4 +194,5 @@ html {
 #info-pokeball-bottom-moves {
   height: 100%;
   width: 100%;
+  padding-left: 2em;
 }
