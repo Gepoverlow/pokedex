@@ -185,12 +185,11 @@ class Pokedex {
 
   handleShinyToggle(currentPokemon) {
     if (currentPokemon[0].isShiny === false) {
-      document.getElementById("info-pokeball-top-basic-img").src =
-        this.pokemon.shinySprite;
+      document.getElementById("info-pokeball-top-basic-img").src = this.pokemon.shinySprite;
+
       currentPokemon[0].isShiny = true;
     } else {
-      document.getElementById("info-pokeball-top-basic-img").src =
-        this.pokemon.sprite;
+      document.getElementById("info-pokeball-top-basic-img").src = this.pokemon.sprite;
       currentPokemon[0].isShiny = false;
     }
   }
@@ -205,9 +204,7 @@ class Pokedex {
   }
 
   filterPokemons(input) {
-    this.filteredPokemons = this.allPokemonNames.filter((name) =>
-      name.includes(input)
-    );
+    this.filteredPokemons = this.allPokemonNames.filter((name) => name.includes(input));
     if (input) {
       this.displayFilteredPokemons(this.filteredPokemons);
     } else {

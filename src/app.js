@@ -1,64 +1,9 @@
 import Pokedex from "./Pokedex.js";
 
-// const oddNames = [
-//   "mr-mime",
-//   "darmanitan-standard",
-//   "deoxys-attack",
-//   "deoxys-defense",
-//   "deoxys-normal",
-//   "wormadam-plant",
-//   "mime-jr",
-//   "porygon-z",
-//   "giratina-altered",
-//   "shaymin-land",
-//   "basculin-red-striped",
-//   "tornadus-incarnate",
-//   "thundurus-incarnate",
-//   "landorus-incarnate",
-//   "keldeo-ordinary",
-//   "meloetta-aria",
-//   "meowstic-male",
-//   "aegislash-shield",
-//   "pumpkaboo-average",
-//   "gourgeist-average",
-//   "zygarde-50",
-//   "lycanroc-midday",
-//   "wishiwashi-solo",
-//   "type-null",
-//   "minior-red-meteor",
-//   "mimikyu-disguised",
-//   "jangmo-o",
-//   "hakamo-o",
-//   "kommo-o",
-//   "tapu-koko",
-//   "tapu-lele",
-//   "tapu-bulu",
-//   "tapu-fini",
-//   "toxtricity-amped",
-//   "mr-rime",
-//   "eiscue-ice",
-//   "indeedee-male",
-//   "morpeko-full-belly",
-//   "urshifu-single-strike",
-//   "deoxys-speed",
-//   "wormadam-sandy",
-//   "wormadam-trash",
-//   "shaymin-sky",
-//   "giratina-origin",
-//   "rotom-heat",
-//   "rotom-wash",
-//   "rotom-frost",
-//   "rotom-fan",
-//   "rotom-mow",
-//   "castform-sunny",
-// ];
-
 const searchInput = document.getElementById("pokemon-search-input");
 const searchPokemon = document.getElementById("pokemon-search-button");
 const containerPokeballBottom = document.getElementById("info-pokeball-bottom");
-const containerSuggestions = document.getElementById(
-  "pokemon-search-autocomplete"
-);
+const containerSuggestions = document.getElementById("pokemon-search-autocomplete");
 
 const pokedex = new Pokedex();
 
@@ -145,16 +90,6 @@ async function getEvolutions(speciesUrl) {
   await displayEvolutions();
 }
 
-async function getPokemonId(pokemonName) {
-  const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
-  if (data.status === 404) return; //
-  const response = await data.json();
-
-  console.log(response);
-
-  return response.id;
-}
-
 async function handleEvolutionData(chainUrl) {
   const data = await fetch(chainUrl);
   const response = await data.json();
@@ -169,16 +104,13 @@ async function handleEvolutionData(chainUrl) {
     evolutionChain.push({
       name: evoData.species.name,
       id: splicedString,
-      // id: await getPokemonId(evoData.species.name),
     });
 
     evoData = evoData["evolves_to"][0];
   } while (!!evoData && evoData.hasOwnProperty("evolves_to"));
 
   if (pokedex.currentPokemon[0].evolutionLine.length === 0) {
-    evolutionChain.forEach((evolution) =>
-      pokedex.currentPokemon[0].evolutionLine.push(evolution)
-    );
+    evolutionChain.forEach((evolution) => pokedex.currentPokemon[0].evolutionLine.push(evolution));
   }
 }
 
@@ -189,9 +121,7 @@ async function displayEvolutions() {
   containerPokeballBottom.appendChild(movesSpan);
 
   for (let i = 0; i < pokedex.currentPokemon[0].evolutionLine.length; i++) {
-    let evoData = await getEvolutionData(
-      `${pokedex.currentPokemon[0].evolutionLine[i].id}`
-    );
+    let evoData = await getEvolutionData(`${pokedex.currentPokemon[0].evolutionLine[i].id}`);
     if (evoData) {
       let evoImg = document.createElement("img");
       evoImg.src = evoData[0];
@@ -203,9 +133,7 @@ async function displayEvolutions() {
 }
 
 async function getPokemonNames(offset) {
-  const data = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?limit=151&offset=${offset}`
-  );
+  const data = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151&offset=${offset}`);
   const response = await data.json();
 
   response.results.forEach((result) => {
@@ -218,4 +146,4 @@ async function getPokemonNames(offset) {
     getPokemonNames(pokedex.offset);
   }, 1000);
 }
-getPokemonNames(pokedex.offset);
+//getPokemonNames(pokedex.offset);
