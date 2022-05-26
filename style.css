@@ -3,11 +3,13 @@
   padding: 0;
   margin: 0;
   font-family: "Concert One", cursive;
+  color: rgb(30, 28, 28);
 }
 
 body,
 html {
-  height: 100%;
+  min-height: 100%;
+  overflow: visible;
 }
 
 #container-all {
@@ -55,6 +57,7 @@ html {
 }
 
 #container-info {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,7 +84,7 @@ html {
   align-items: center;
   width: 70%;
   height: 47%;
-  background-color: rgba(154, 51, 51, 0.5);
+  /* background-color: rgba(154, 51, 51, 0.5); */
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 0.5em;
@@ -91,9 +94,9 @@ html {
 #info-pokeball-top-shiny-toggle {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   padding: 0.2em;
-  background-color: rgba(154, 51, 51, 0.5);
+  background-color: rgba(251, 233, 233, 0.5);
   cursor: pointer;
   font-size: 1rem;
 }
@@ -103,8 +106,13 @@ html {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* gap: 0.3em; */
+  padding-top: 2em;
   height: 100%;
+}
+
+#info-pokeball-top-basic-img {
+  height: 150px;
+  width: 150px;
 }
 
 #info-pokeball-id {
@@ -114,13 +122,10 @@ html {
   position: absolute;
   top: 0;
   right: 0;
-  left: 0;
-  bottom: 0;
-  margin: auto;
-  height: 5rem;
-  width: 5rem;
-  border-radius: 50%;
+  padding: 20px;
   background-color: transparent;
+  font-size: clamp(2rem, 20vw, 8rem);
+  color: rgba(251, 233, 233, 0.5);
 }
 
 #info-pokeball-bottom {
@@ -128,13 +133,19 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
-  height: 47%;
+  width: 75%;
+  min-height: 47%;
   background-color: rgba(251, 233, 233, 0.5);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   padding: 0.5em;
-  overflow: hidden;
+}
+
+#info-pokeball-bottom-evo-container {
+  display: flex;
+  align-items: center;
+  /* width: 100%; */
+  overflow: scroll;
 }
 
 #info-pokeball-bottom-evo-toggle,
