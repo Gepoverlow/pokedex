@@ -163,17 +163,17 @@ function removeDuplicateObjects(array) {
 }
 
 async function getPokemonNames(offset) {
-  const data = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151&offset=${offset}`);
+  const data = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=200&offset=${offset}`);
   const response = await data.json();
 
   response.results.forEach((result) => {
     pokedex.allPokemonNames.push(result.name);
   });
-  pokedex.offset += 151;
+  pokedex.offset += 200;
 
   if (pokedex.offset >= 1200) return;
   setTimeout(() => {
     getPokemonNames(pokedex.offset);
   }, 1000);
 }
-//getPokemonNames(pokedex.offset);
+getPokemonNames(pokedex.offset);
