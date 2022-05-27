@@ -29,6 +29,14 @@ html {
   color: rgb(240, 232, 232);
   gap: 2rem;
 }
+#info-app-name {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 5px;
+  font-size: clamp(0.5rem, 5vw, 2rem);
+  color: rgba(30, 28, 28, 0.5);
+}
 
 #pokemon-search-autocomplete {
   position: absolute;
